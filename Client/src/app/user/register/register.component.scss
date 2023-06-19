@@ -1,0 +1,9 @@
+.login-form{
+    width: 50%;
+}
+.ng-invalid.ng-dirty:not(form){
+    border-left: red 5px solid;
+}
+.ng-valid.ng-dirty:not(form){
+    border-left: green 5px solid;
+}

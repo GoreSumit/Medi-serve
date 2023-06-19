@@ -1,0 +1,56 @@
+<div class="container-fluid main">
+
+    <div class="container mt-5">
+        <div class="alert alert-success text-center">
+            <h5>Medicines</h5>
+        </div>
+        <div *ngIf="medicines$|async as medicines">
+            
+            <table class="table mt-5 text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Exp</th>
+                    <!-- <th scope="col">addedBy</th> -->
+                  </tr>
+                </thead>
+        
+                <tbody *ngFor="let medicine of medicines.data">
+        
+                  <tr>
+                    <td>{{medicine.name}}</td>
+                    <td>{{medicine.price|currency}}</td>
+                    <td>{{medicine.exp|date}}</td>
+                    <!-- <td>{{medicine.addedBy}}</td> -->
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="alert alert-success text-center">
+            <h5>Users</h5>
+        </div>
+
+        <div *ngIf="users$|async as users">
+            <table class="table mt-5 text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let user of users.data">
+                  <tr>
+                    <td>{{user.fullname}}</td>
+                    <td>{{user.email}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            
+            
+        </div>
+    </div>
+
+</div>

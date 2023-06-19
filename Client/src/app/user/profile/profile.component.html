@@ -1,0 +1,148 @@
+<div class="container-fluid">
+  <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{addSuccess}}</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div class="container-sm mt-3">
+    <!-- Button trigger modal -->
+    <button type="button" (click)="AddMedButton()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add Medicine
+    </button>
+
+    <!-- Modal -->
+
+    <div class="modal fade" id="exampleModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="medicineForm" (ngSubmit)="addMedicine()">
+              <div class="mb-3">
+                <label for="name" class="form-label">Medicine Name</label>
+                <input type="text" class="form-control" id="name" formControlName="name">
+              </div>
+              <div class="mb-3">
+                <label for="exp" class="form-label">exp</label>
+                <input type="text" class="form-control" id="exp" formControlName="exp">
+              </div>
+              <div class="mb-3">
+                <label for="price" class="form-label">price</label>
+                <input type="number" class="form-control" id="price" formControlName="price" [value]=20>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit"  data-bs-dismiss="modal" class="btn btn-primary">Add</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div *ngIf="medicines$|async">
+
+
+      <!-- <table class="table mt-5 ">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Exp</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+
+        <tbody *ngFor="let medicine of filteredMedicines">
+
+          <tr>
+            <td>{{medicine.name}}</td>
+            <td>{{medicine.price|currency}}</td>
+            <td>{{medicine.exp|date}}</td>
+            <td>
+              <div>
+                <button class="btn btn-primary mx-1" (click)="getMedId(medicine)" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal">edit</button>
+                <button class="btn btn-danger mx-1" (click)="deleteMedicine(medicine._id)">delete</button>
+              </div>
+            </td>
+
+
+          </tr>
+
+
+        </tbody>
+      </table> -->
+
+      <table class="table mt-5 ">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Exp</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+
+        <tbody *ngFor="let medicine of filteredMedicines">
+
+          <tr>
+            <td>
+              <ng-container *ngIf="medicine.isEdit">
+                <input type="text" class="form-control" id="name"  [(ngModel)]="medicine.name">
+              </ng-container>
+              <ng-container *ngIf="!medicine.isEdit">
+                {{medicine.name}}
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="medicine.isEdit">
+                <input type="text" class="form-control" id="name" [(ngModel)]="medicine.price">
+              </ng-container>
+              <ng-container *ngIf="!medicine.isEdit">
+                {{medicine.price|currency}}
+              </ng-container>
+            
+            </td>
+            <td>
+              <ng-container *ngIf="medicine.isEdit">
+                <input type="text" class="form-control" id="name" [(ngModel)]="medicine.exp">
+              </ng-container>
+              <ng-container *ngIf="!medicine.isEdit">
+                {{medicine.exp|date}}
+              </ng-container>
+              
+            
+            </td>
+            <td>
+              <div>
+                <ng-container *ngIf="medicine.isEdit">
+                <button type="button" (click)="updateMedicine(medicine)" class="btn btn-primary">Add</button>
+                <button type="button" (click)="medicine.isEdit=false" class="btn btn-secondary">cancel</button>
+                  
+                </ng-container>
+
+                <ng-container *ngIf="!medicine.isEdit">
+
+                  <button class="btn btn-primary mx-1" (click)="onedit(medicine)" 
+                    >edit</button>
+                  <button class="btn btn-danger mx-1" (click)="deleteMedicine(medicine._id)">delete</button>
+                </ng-container>
+              </div>
+            </td>
+
+
+          </tr>
+
+
+        </tbody>
+      </table>
+
+      
+
+
+    </div>
+  </div>
+</div>

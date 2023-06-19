@@ -1,0 +1,26 @@
+<div class="container-sm mt-5 login-form">
+  <div *ngIf="errorMessage" class="alert alert-warning" role="alert">
+    A simple warning alert—check it out!
+  </div>
+    <form [formGroup]="loginForm" (ngSubmit)="loginForm.valid && userLogin()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" formControlName="email">
+          <p class="text-danger" *ngIf="emailCtrl.dirty && emailCtrl.invalid">
+            <ng-container *ngIf="emailCtrl.errors">
+              <ng-container *ngIf="emailCtrl.errors?.['required']"> Email is Required</ng-container>
+              <ng-container *ngIf="emailCtrl.errors?.['email']"> Enter a valid Email ex: abc@gmail.com</ng-container>
+            </ng-container>
+          </p>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" formControlName="password">
+          <p class="text-danger" *ngIf="passwordCtrl.dirty && passwordCtrl.invalid">
+            <ng-container *ngIf="passwordCtrl.errors?.['required']">Password is Required</ng-container>
+          </p>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+      </form>
+</div>
+
